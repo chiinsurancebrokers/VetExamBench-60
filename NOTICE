@@ -1,0 +1,32 @@
+VetExamBench-60
+Copyright 2026 KiraAIPet
+
+This product includes software developed by KiraAIPet.
+
+=========================================================================
+
+THIRD-PARTY CONTENT NOTICE
+=========================================================================
+
+The file "vea_benchmark_60.json" contains question text and answer keys
+derived from the following source:
+
+    Veterinary Educational Assessment (VEA®) Sample Questions
+    © International Council for Veterinary Assessment® (ICVA®)
+    All rights reserved.
+    https://www.icva.net/
+
+The ICVA VEA® Sample Questions PDF is freely distributed by ICVA for
+exam preparation purposes. The question content is included in this
+repository in structured JSON format for non-commercial AI evaluation
+and benchmarking under fair use.
+
+The Apache License 2.0 applies ONLY to the original code files in this
+repository (run_vea_benchmark.py, score_answers.py, and associated
+scripts). It does NOT apply to the ICVA question content, which remains
+the intellectual property of ICVA.
+
+For questions about the use of ICVA content, contact: mail@icva.net
+
+VEA® is a registered trademark of the International Council for
+Veterinary Assessment® (ICVA®).

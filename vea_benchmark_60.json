@@ -1,0 +1,932 @@
+{
+  "metadata": {
+    "title": "VetExamBench-60 (ICVA VEA)",
+    "version": "1.0.0",
+    "source": "ICVA Veterinary Educational Assessment (VEA®) Sample Questions",
+    "source_url": "https://www.icva.net/",
+    "copyright": "© International Council for Veterinary Assessment® (ICVA®). All rights reserved.",
+    "license_note": "Questions used for non-commercial AI benchmarking under fair-use evaluation. Original PDF freely distributed by ICVA for exam preparation.",
+    "total_questions": 60,
+    "image_dependent_questions": [20, 23, 34, 42, 46, 54, 56],
+    "text_only_questions": 53,
+    "pass_threshold_pct": 70,
+    "created": "2026-07-04",
+    "categories": [
+      "Physiology",
+      "Pharmacology",
+      "Anatomy",
+      "Microbiology",
+      "Parasitology",
+      "Immunology",
+      "Pathology",
+      "Clinical_Medicine",
+      "Histology",
+      "Clinical_Pathology"
+    ]
+  },
+  "questions": [
+    {
+      "id": 1,
+      "question": "The T wave of the electrocardiogram represents which of the following?",
+      "options": {
+        "A": "Bicuspid valve closure",
+        "B": "Contraction of the ventricles",
+        "C": "Depolarization of the atria",
+        "D": "Repolarization of the ventricles",
+        "E": "Sinoatrial node discharge"
+      },
+      "correct": "D",
+      "category": "Physiology",
+      "subcategory": "Cardiovascular",
+      "requires_image": false
+    },
+    {
+      "id": 2,
+      "question": "Which of the following is the most likely initial route of exposure of listeriosis in cattle and sheep?",
+      "options": {
+        "A": "Ingestion of feed that has been contaminated with the saliva of infected animals",
+        "B": "Ingestion of Listeria-contaminated soil, vegetation, or silage",
+        "C": "Intranasal transmission by exposure to infected animals",
+        "D": "Percutaneous transmission by insect vectors",
+        "E": "Transmission through infected semen"
+      },
+      "correct": "B",
+      "category": "Microbiology",
+      "subcategory": "Infectious_Disease",
+      "requires_image": false
+    },
+    {
+      "id": 3,
+      "question": "In which of the following parasites is a hydatid cyst found in the peritoneal cavity of the intermediate host?",
+      "options": {
+        "A": "Echinococcus granulosus",
+        "B": "Moniezia expansa",
+        "C": "Taenia hydatigena",
+        "D": "Taenia solium",
+        "E": "Taenia taeniaeformis"
+      },
+      "correct": "A",
+      "category": "Parasitology",
+      "subcategory": "Cestodes",
+      "requires_image": false
+    },
+    {
+      "id": 4,
+      "question": "Which of the following antiarrhythmic agents is believed to act primarily by blocking cardiac beta-adrenergic receptors?",
+      "options": {
+        "A": "Lidocaine",
+        "B": "Procainamide",
+        "C": "Propranolol",
+        "D": "Quinidine",
+        "E": "Verapamil"
+      },
+      "correct": "C",
+      "category": "Pharmacology",
+      "subcategory": "Cardiovascular",
+      "requires_image": false
+    },
+    {
+      "id": 5,
+      "question": "A veterinarian is presented with a dog that shows, on the right side, medial strabismus, a poor retractor oculi reflex, and lack of lateral gaze. Which of the following right cranial nerves is most likely affected?",
+      "options": {
+        "A": "Oculomotor (III)",
+        "B": "Trochlear (IV)",
+        "C": "Trigeminal (V)",
+        "D": "Abducens (VI)",
+        "E": "Facial (VII)"
+      },
+      "correct": "D",
+      "category": "Anatomy",
+      "subcategory": "Neuroanatomy",
+      "requires_image": false
+    },
+    {
+      "id": 6,
+      "question": "A midline ventral abdominal incision through the peritoneum cranial to the umbilicus in a dog exposes a fatty structure extending from the umbilicus to the diaphragm and the liver. This structure is most likely which of the following?",
+      "options": {
+        "A": "Coronary ligament of the liver",
+        "B": "Falciform ligament",
+        "C": "Greater omentum",
+        "D": "Lesser omentum",
+        "E": "Middle ligament of the bladder"
+      },
+      "correct": "B",
+      "category": "Anatomy",
+      "subcategory": "Abdominal",
+      "requires_image": false
+    },
+    {
+      "id": 7,
+      "question": "Allergic and anaphylactic reactions are associated with antibody molecules bound to receptors on mast cells and basophils. In most animals, this antibody belongs to which immunoglobulin class (isotype)?",
+      "options": {
+        "A": "IgA",
+        "B": "IgD",
+        "C": "IgE",
+        "D": "IgG",
+        "E": "IgM"
+      },
+      "correct": "C",
+      "category": "Immunology",
+      "subcategory": "Hypersensitivity",
+      "requires_image": false
+    },
+    {
+      "id": 8,
+      "question": "One day after birth, a large Simmental calf that was delivered in caudal presentation is unable to bear weight on the right pelvic limb. Signs include flexion of the stifle, hock, fetlock, and pastern; inability to extend the stifle; absent patellar reflex; and flaccid quadriceps muscles. Which of the following nerves is most likely affected?",
+      "options": {
+        "A": "Femoral",
+        "B": "Obturator",
+        "C": "Peroneal",
+        "D": "Sciatic",
+        "E": "Tibial"
+      },
+      "correct": "A",
+      "category": "Anatomy",
+      "subcategory": "Neuroanatomy",
+      "requires_image": false
+    },
+    {
+      "id": 9,
+      "question": "At which of the following times are heifers most likely to ovulate?",
+      "options": {
+        "A": "Approximately 12 hours after the end of estrus",
+        "B": "At the beginning of estrus",
+        "C": "During the latter part of estrus",
+        "D": "During the middle of estrus",
+        "E": "During the middle of metestrus"
+      },
+      "correct": "A",
+      "category": "Physiology",
+      "subcategory": "Reproduction",
+      "requires_image": false
+    },
+    {
+      "id": 10,
+      "question": "To which of the following classes of epithelium does ruminal epithelium belong?",
+      "options": {
+        "A": "Simple columnar",
+        "B": "Simple cuboidal",
+        "C": "Stratified squamous",
+        "D": "Stratified columnar",
+        "E": "Simple squamous"
+      },
+      "correct": "C",
+      "category": "Histology",
+      "subcategory": "Epithelium",
+      "requires_image": false
+    },
+    {
+      "id": 11,
+      "question": "Which of the following is the most likely source of the majority of bilirubin in the plasma of healthy animals?",
+      "options": {
+        "A": "Breakdown of senescent erythrocytes",
+        "B": "Degradation of urobilinogen",
+        "C": "Synthesis by bile-duct epithelial cells",
+        "D": "Synthesis by hepatocytes",
+        "E": "Reabsorption from the intestinal tract"
+      },
+      "correct": "A",
+      "category": "Physiology",
+      "subcategory": "Hematology",
+      "requires_image": false
+    },
+    {
+      "id": 12,
+      "question": "Which of the following is an antidote for acetaminophen intoxication?",
+      "options": {
+        "A": "Acetazolamide",
+        "B": "Acetylcysteine",
+        "C": "Acetylpromazine (acepromazine)",
+        "D": "Actinomycin",
+        "E": "Azathioprine"
+      },
+      "correct": "B",
+      "category": "Pharmacology",
+      "subcategory": "Toxicology",
+      "requires_image": false
+    },
+    {
+      "id": 13,
+      "question": "A 12-year-old Morgan mare is undergoing a prepurchase examination. At rest, the animal has a heart rate of 28 beats/min and drops every fourth beat. The dysrhythmia disappears with exercise. Electrocardiogram discloses a second-degree atrioventricular block. Which of the following advice should the veterinarian give the buyer regarding these findings?",
+      "options": {
+        "A": "They are indicative of a pathologic dysrhythmia and are considered unsafe",
+        "B": "They are indicative of possible long-term complications, and the horse should be evaluated by color flow Doppler",
+        "C": "They are indicative of possible underlying disease, and the horse should be reevaluated in two weeks",
+        "D": "They are normal and considered benign in horses",
+        "E": "They are possibly significant, and the horse should undergo a treadmill stress test"
+      },
+      "correct": "D",
+      "category": "Clinical_Medicine",
+      "subcategory": "Equine_Cardiology",
+      "requires_image": false
+    },
+    {
+      "id": 14,
+      "question": "Increasing the body temperature causes which of the following changes in blood hemoglobin and pH?",
+      "options": {
+        "A": "Decreased oxygen affinity and decreased pH",
+        "B": "Decreased oxygen affinity and increased pH",
+        "C": "Increased oxygen affinity and decreased pH",
+        "D": "Increased oxygen affinity and increased pH",
+        "E": "No change in oxygen affinity or pH"
+      },
+      "correct": "A",
+      "category": "Physiology",
+      "subcategory": "Respiratory",
+      "requires_image": false
+    },
+    {
+      "id": 15,
+      "question": "In turkeys, the half-life of benzylpenicillin is approximately 50 minutes. If the serum concentration is measured at 10 \u03bcg/mL, in how many minutes should the drug be readministered to prevent the serum concentration from decreasing to less than 2.5 \u03bcg/mL?",
+      "options": {
+        "A": "25",
+        "B": "50",
+        "C": "75",
+        "D": "100",
+        "E": "150"
+      },
+      "correct": "D",
+      "category": "Pharmacology",
+      "subcategory": "Pharmacokinetics",
+      "requires_image": false
+    },
+    {
+      "id": 16,
+      "question": "Which of the following is the most important therapeutic mechanism of action for nonsteroidal anti-inflammatory drugs such as aspirin and flunixin meglumine?",
+      "options": {
+        "A": "Inhibit the conversion of arachidonic acid to prostaglandins",
+        "B": "Inhibit the conversion of intermediate prostaglandins to thromboxane",
+        "C": "Inhibit the conversion of leukotriene compounds to prostaglandins",
+        "D": "Inhibit the conversion of membrane phospholipids to arachidonic acid",
+        "E": "Inhibit the enzyme phospholipase A2"
+      },
+      "correct": "A",
+      "category": "Pharmacology",
+      "subcategory": "Anti-inflammatory",
+      "requires_image": false
+    },
+    {
+      "id": 17,
+      "question": "Which of the following best explains why epinephrine is used as an adjunct to local anesthetics?",
+      "options": {
+        "A": "It causes local anoxia, thereby partially numbing the tissue",
+        "B": "It decreases absorption of the local anesthetic",
+        "C": "It inhibits alpha-receptors, causing vasoconstriction",
+        "D": "It inhibits beta-receptors, causing vasoconstriction",
+        "E": "It inhibits the enzyme hyaluronidase in the tissues"
+      },
+      "correct": "B",
+      "category": "Pharmacology",
+      "subcategory": "Anesthesia",
+      "requires_image": false
+    },
+    {
+      "id": 18,
+      "question": "In the horse, which of the following flexures in the ascending colon separates the left ventral colon from the left dorsal colon?",
+      "options": {
+        "A": "Diaphragmatic",
+        "B": "Pelvic",
+        "C": "Rectal",
+        "D": "Sternal",
+        "E": "Transverse"
+      },
+      "correct": "B",
+      "category": "Anatomy",
+      "subcategory": "Equine_GI",
+      "requires_image": false
+    },
+    {
+      "id": 19,
+      "question": "In general, which of the following receptors increases blood pressure by decreasing arteriolar radius?",
+      "options": {
+        "A": "Alpha-adrenergic",
+        "B": "Beta1-adrenergic",
+        "C": "Beta2-adrenergic",
+        "D": "Muscarinic",
+        "E": "Nicotinic"
+      },
+      "correct": "A",
+      "category": "Physiology",
+      "subcategory": "Cardiovascular",
+      "requires_image": false
+    },
+    {
+      "id": 20,
+      "question": "A flexed lateral view radiograph of the elbow of a dog is shown. Which of the following processes is indicated by the arrow?",
+      "options": {
+        "A": "Anconeal",
+        "B": "Lateral coronoid",
+        "C": "Medial coronoid",
+        "D": "Olecranon"
+      },
+      "correct": "A",
+      "category": "Anatomy",
+      "subcategory": "Radiology",
+      "requires_image": true,
+      "image_note": "Flexed lateral radiograph of canine elbow with arrow pointing to anconeal process"
+    },
+    {
+      "id": 21,
+      "question": "A decrease in the concentration of free (ionized) calcium in blood initially stimulates hormone secretion from which of the following organs?",
+      "options": {
+        "A": "Bone",
+        "B": "Kidney",
+        "C": "Parathyroid gland",
+        "D": "Pituitary gland",
+        "E": "Thyroid gland"
+      },
+      "correct": "C",
+      "category": "Physiology",
+      "subcategory": "Endocrinology",
+      "requires_image": false
+    },
+    {
+      "id": 22,
+      "question": "Which of the following inflammatory cells is most predominant in purulent inflammation?",
+      "options": {
+        "A": "Eosinophil",
+        "B": "Lymphocyte",
+        "C": "Macrophage",
+        "D": "Mast cell",
+        "E": "Neutrophil"
+      },
+      "correct": "E",
+      "category": "Pathology",
+      "subcategory": "Inflammation",
+      "requires_image": false
+    },
+    {
+      "id": 23,
+      "question": "A radiograph of a foal is shown. Which of the following bones is fractured?",
+      "options": {
+        "A": "Femur",
+        "B": "Fibula",
+        "C": "Humerus",
+        "D": "Scapula",
+        "E": "Tibia"
+      },
+      "correct": "A",
+      "category": "Anatomy",
+      "subcategory": "Radiology",
+      "requires_image": true,
+      "image_note": "Radiograph of foal showing femur fracture"
+    },
+    {
+      "id": 24,
+      "question": "A 6-year-old dog has been treated with corticosteroids for atopic dermatitis for two weeks. In addition to leukocytosis and monocytosis, which of the following abnormalities are most likely to be found in the leukogram of this dog?",
+      "options": {
+        "A": "Mature neutrophilia and lymphocytosis",
+        "B": "Mature neutrophilia and lymphopenia",
+        "C": "Neutropenia and lymphopenia",
+        "D": "Neutrophilia with a left shift and lymphocytosis",
+        "E": "Neutrophilia with a left shift and lymphopenia"
+      },
+      "correct": "B",
+      "category": "Clinical_Pathology",
+      "subcategory": "Hematology",
+      "requires_image": false
+    },
+    {
+      "id": 25,
+      "question": "Which of the following is normally present in samples of plasma but not in serum from a healthy domestic animal?",
+      "options": {
+        "A": "Albumin",
+        "B": "Creatinine",
+        "C": "Fibrinogen",
+        "D": "Sodium",
+        "E": "Urea"
+      },
+      "correct": "C",
+      "category": "Clinical_Pathology",
+      "subcategory": "Chemistry",
+      "requires_image": false
+    },
+    {
+      "id": 26,
+      "question": "Which of the following diseases of sheep is caused by Corynebacterium pseudotuberculosis?",
+      "options": {
+        "A": "Bluetongue",
+        "B": "Caseous lymphadenitis",
+        "C": "Contagious ecthyma",
+        "D": "Tuberculosis",
+        "E": "Ulcerative dermatosis"
+      },
+      "correct": "B",
+      "category": "Microbiology",
+      "subcategory": "Bacteriology",
+      "requires_image": false
+    },
+    {
+      "id": 27,
+      "question": "During an ovariohysterectomy on a 50-lb (22-kg) Golden Retriever dog, the transected right ovarian pedicle is accidentally dropped before adequate ligation. Which of the following portions of the gastrointestinal tract with its associated mesentery can be used to retract the remaining viscera and expose the right dorsal abdominal wall to reach the transected vessels?",
+      "options": {
+        "A": "Ascending colon",
+        "B": "Ascending duodenum",
+        "C": "Descending colon",
+        "D": "Descending duodenum",
+        "E": "Ileum"
+      },
+      "correct": "D",
+      "category": "Anatomy",
+      "subcategory": "Surgical_Anatomy",
+      "requires_image": false
+    },
+    {
+      "id": 28,
+      "question": "A 5-year-old Jersey cow has severe weight loss and watery diarrhea. A preliminary diagnosis of paratuberculosis is made and the cow is euthanized. Which of the following findings on microscopic examination of the intestine is most likely to confirm the diagnosis?",
+      "options": {
+        "A": "Denudation of the mucosa",
+        "B": "Eosinophilic infiltration of the duodenum",
+        "C": "Granulomatous infiltration of the ileum",
+        "D": "Hemorrhagic inflammation of the colon",
+        "E": "Villous atrophy of the small intestine"
+      },
+      "correct": "C",
+      "category": "Pathology",
+      "subcategory": "GI_Pathology",
+      "requires_image": false
+    },
+    {
+      "id": 29,
+      "question": "A sheep operation is experiencing spontaneous abortions among the ewes and congenital deformities in lambs. A tentative diagnosis of bluetongue is made. The pathogen involved is most likely transmitted by which of the following means?",
+      "options": {
+        "A": "Aerosol spread",
+        "B": "Fecal-oral spread",
+        "C": "Iatrogenic inoculation",
+        "D": "Insect vector",
+        "E": "Semen from an infected ram"
+      },
+      "correct": "D",
+      "category": "Microbiology",
+      "subcategory": "Virology",
+      "requires_image": false
+    },
+    {
+      "id": 30,
+      "question": "Which of the following is the most likely intermediate host for Dipylidium caninum in dogs and cats?",
+      "options": {
+        "A": "Fleas",
+        "B": "Flies",
+        "C": "Lice",
+        "D": "Rodents",
+        "E": "Ticks"
+      },
+      "correct": "A",
+      "category": "Parasitology",
+      "subcategory": "Cestodes",
+      "requires_image": false
+    },
+    {
+      "id": 31,
+      "question": "A dog breeder reports that several puppies from recent litters died within two weeks of birth. The puppies appeared healthy at birth, declined in vigor at 9 to 10 days of age, and died within several days of the onset of clinical signs. Physical examination of surviving puppies shows very pale mucous membranes. Which of the following canine parasites is the most likely causal organism?",
+      "options": {
+        "A": "Ancylostoma caninum",
+        "B": "Dirofilaria immitis",
+        "C": "Isospora canis",
+        "D": "Toxocara canis",
+        "E": "Trichuris vulpis"
+      },
+      "correct": "A",
+      "category": "Parasitology",
+      "subcategory": "Nematodes",
+      "requires_image": false
+    },
+    {
+      "id": 32,
+      "question": "A cat is brought to the office for evaluation after ingesting an acetaminophen tablet. Which of the following abnormal red blood cells is most likely to be seen on a peripheral blood smear?",
+      "options": {
+        "A": "Anisocytosis",
+        "B": "Heinz body",
+        "C": "Howell-Jolly body",
+        "D": "Polychromasia",
+        "E": "Target cell"
+      },
+      "correct": "B",
+      "category": "Clinical_Pathology",
+      "subcategory": "Toxicology",
+      "requires_image": false
+    },
+    {
+      "id": 33,
+      "question": "Which of the following is the body's major source of erythropoietin?",
+      "options": {
+        "A": "Bone marrow",
+        "B": "Kidney",
+        "C": "Liver",
+        "D": "Spleen",
+        "E": "Stomach"
+      },
+      "correct": "B",
+      "category": "Physiology",
+      "subcategory": "Hematology",
+      "requires_image": false
+    },
+    {
+      "id": 34,
+      "question": "The cells in the retinal layer labeled C in the photomicrograph are responsible for which of the following?",
+      "options": {
+        "A": "Absorbing excess photons",
+        "B": "Acting as interneurons",
+        "C": "Detecting light, color, and shape",
+        "D": "Forming the optic (II) nerve with their axons",
+        "E": "Reflecting light"
+      },
+      "correct": "B",
+      "category": "Histology",
+      "subcategory": "Neurohistology",
+      "requires_image": true,
+      "image_note": "Photomicrograph of retinal layers labeled A-E. Layer C contains interneurons (inner nuclear layer)."
+    },
+    {
+      "id": 35,
+      "question": "Distribution of blood flow is regulated primarily by which of the following portions of the vasculature?",
+      "options": {
+        "A": "Arterioles",
+        "B": "Arteriovenous anastomoses",
+        "C": "Capillaries",
+        "D": "Postcapillary venules",
+        "E": "Venules"
+      },
+      "correct": "A",
+      "category": "Physiology",
+      "subcategory": "Cardiovascular",
+      "requires_image": false
+    },
+    {
+      "id": 36,
+      "question": "Hypoventilation of an animal during anesthesia can result in which of the following blood gas derangements? (PaCO2 / [H+] / pH)",
+      "options": {
+        "A": "Increased / Increased / Decreased",
+        "B": "Increased / Decreased / Increased",
+        "C": "Increased / Decreased / Decreased",
+        "D": "Decreased / Increased / Decreased",
+        "E": "Decreased / Decreased / Increased",
+        "F": "Decreased / Decreased / Decreased"
+      },
+      "correct": "A",
+      "category": "Physiology",
+      "subcategory": "Acid-Base",
+      "requires_image": false
+    },
+    {
+      "id": 37,
+      "question": "A 4-year-old Quarter Horse mare has lameness in its right thoracic limb with sensitivity across the heel bulbs. Nerve blocks are performed to localize the lameness. To block only the palmar region of the foot exclusive of the toe, the anesthetic is best placed in which of the following locations?",
+      "options": {
+        "A": "About halfway between the fetlock and the coronary band, just dorsal to the superficial digital flexor tendon",
+        "B": "Along the axial surface of the proximal end of the splint bones, lateral to the origin of the suspensory ligament",
+        "C": "At the level of the proximal sesamoid bones, subcutaneously over their lateral surfaces",
+        "D": "Subcutaneously in a complete ring around the foot over the first phalanx, proximal to the proximal interphalangeal joint",
+        "E": "Two to 3 inches (5 to 7 cm) above the metacarpophalangeal joint, just dorsal to the deep digital flexor tendon"
+      },
+      "correct": "A",
+      "category": "Anatomy",
+      "subcategory": "Equine_Nerve_Blocks",
+      "requires_image": false
+    },
+    {
+      "id": 38,
+      "question": "About a fourth of a herd of 500 beef-breed cattle have an ocular discharge and are bellowing as if they are in pain. Physical examination of one of the affected animals shows inflammation of the conjunctivae and an opaque ocular discharge. Blepharospasm occurs during examination. Bacterial culture of material swabbed from mucous membranes shows a short, gram-negative organism. Which of the following is the most likely causal organism?",
+      "options": {
+        "A": "Escherichia coli",
+        "B": "Histophilus somni (Haemophilus somnus)",
+        "C": "Klebsiella pneumoniae",
+        "D": "Moraxella bovis",
+        "E": "Pasteurella multocida"
+      },
+      "correct": "D",
+      "category": "Microbiology",
+      "subcategory": "Bacteriology",
+      "requires_image": false
+    },
+    {
+      "id": 39,
+      "question": "A 3-year-old female Siamese cat is brought to the clinic because 24 hours ago the owners noticed that the cat's pupils were unequal in size. On ophthalmologic examination, the right eye is dilated and unresponsive to light. The right pupil remains dilated when light is shined into the left eye. The left eye responds normally to light and constricts when light is shined into the right eye. Physical examination shows no other abnormalities. Which of the following is the most likely location of the problem?",
+      "options": {
+        "A": "Left oculomotor nerve (III)",
+        "B": "Left optic nerve (II)",
+        "C": "Optic chiasm",
+        "D": "Right oculomotor nerve (III)",
+        "E": "Right optic nerve (II)"
+      },
+      "correct": "D",
+      "category": "Clinical_Medicine",
+      "subcategory": "Neurology",
+      "requires_image": false
+    },
+    {
+      "id": 40,
+      "question": "The first heart sound is most closely related with which part of the cardiac cycle?",
+      "options": {
+        "A": "Atrial systole",
+        "B": "Ventricular systole",
+        "C": "Atrial filling",
+        "D": "Rapid ventricular filling",
+        "E": "Ventricular diastole"
+      },
+      "correct": "B",
+      "category": "Physiology",
+      "subcategory": "Cardiovascular",
+      "requires_image": false
+    },
+    {
+      "id": 41,
+      "question": "A newborn foal is being evaluated because of depression, dehydration, and anorexia. Temperature is 103°F (39.4°C). Bacterial septicemia is suspected. Antibiotic therapy with gentamicin is started at 6 mg/kg daily along with fluid therapy and nutritional measures. Which of the following is the most common and serious toxic effect that is likely to be observed in this foal after repeated treatment with gentamicin?",
+      "options": {
+        "A": "Anaphylactic shock",
+        "B": "Hepatotoxicity",
+        "C": "Nephrotoxicity",
+        "D": "Neuromuscular blockade",
+        "E": "Photophobia"
+      },
+      "correct": "C",
+      "category": "Pharmacology",
+      "subcategory": "Antimicrobials",
+      "requires_image": false
+    },
+    {
+      "id": 42,
+      "question": "A yearling Quarter Horse colt has a small laceration on the surface of the left stifle. Which of the following labeled regions would be most appropriate to examine?",
+      "options": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "D",
+        "E": "E"
+      },
+      "correct": "D",
+      "category": "Anatomy",
+      "subcategory": "Equine_Lymphatics",
+      "requires_image": true,
+      "image_note": "Photo of horse with labeled lymph node regions A-E. D indicates the prefemoral/subiliac lymph node region appropriate for stifle drainage."
+    },
+    {
+      "id": 43,
+      "question": "Phagocytosis of bacteria is most likely to occur by which of the following cells?",
+      "options": {
+        "A": "B lymphocytes and T lymphocytes",
+        "B": "Macrophages and T lymphocytes",
+        "C": "Neutrophils and B lymphocytes",
+        "D": "Neutrophils and macrophages"
+      },
+      "correct": "D",
+      "category": "Immunology",
+      "subcategory": "Innate_Immunity",
+      "requires_image": false
+    },
+    {
+      "id": 44,
+      "question": "A 5-year-old Thoroughbred mare in New York develops severe diarrhea in late winter and rapidly becomes dehydrated. Numerous nematode larvae are present in the diarrheic feces. Which of the following is the most likely diagnosis?",
+      "options": {
+        "A": "Anoplocephala perfoliata infection",
+        "B": "Ascariasis",
+        "C": "Habronemiasis",
+        "D": "Larval cyathostomiasis",
+        "E": "Thromboembolic colic caused by Strongylus vulgaris"
+      },
+      "correct": "D",
+      "category": "Parasitology",
+      "subcategory": "Equine_Parasitology",
+      "requires_image": false
+    },
+    {
+      "id": 45,
+      "question": "An 8-year-old indoor/outdoor domestic shorthaired cat who resides in Colorado has clinical signs suggestive of plague. Which of the following is the most likely mode of transmission of this infection to this cat?",
+      "options": {
+        "A": "Bite from a mosquito carrying the bacillus",
+        "B": "Bite from a tick carrying the bacillus",
+        "C": "Cat-to-cat by lice carrying the bacillus",
+        "D": "Exposure to fleas from rodents carrying the bacillus",
+        "E": "Ingestion of a fly carrying the bacillus"
+      },
+      "correct": "D",
+      "category": "Microbiology",
+      "subcategory": "Zoonoses",
+      "requires_image": false
+    },
+    {
+      "id": 46,
+      "question": "Which of the following tick structures is designated by the arrow?",
+      "options": {
+        "A": "Basis capitulum",
+        "B": "Chelicera",
+        "C": "Festoon",
+        "D": "Hypostome",
+        "E": "Scutum"
+      },
+      "correct": "A",
+      "category": "Parasitology",
+      "subcategory": "Arachnology",
+      "requires_image": true,
+      "image_note": "Photograph of a tick with arrow pointing to the basis capitulum"
+    },
+    {
+      "id": 47,
+      "question": "The majority of red blood cells in peripheral blood are nucleated in which of the following species?",
+      "options": {
+        "A": "Chicken",
+        "B": "Cow",
+        "C": "Dog",
+        "D": "Horse",
+        "E": "Llama"
+      },
+      "correct": "A",
+      "category": "Physiology",
+      "subcategory": "Comparative_Hematology",
+      "requires_image": false
+    },
+    {
+      "id": 48,
+      "question": "Which of the following opioids has partial agonist activity and high affinity at mu receptors?",
+      "options": {
+        "A": "Buprenorphine",
+        "B": "Fentanyl",
+        "C": "Hydromorphone",
+        "D": "Morphine",
+        "E": "Oxymorphone"
+      },
+      "correct": "A",
+      "category": "Pharmacology",
+      "subcategory": "Analgesia",
+      "requires_image": false
+    },
+    {
+      "id": 49,
+      "question": "In a dog with skeletal muscle lesions, results of serum studies are most likely to show increased activity of which of the following enzymes?",
+      "options": {
+        "A": "Alanine aminotransferase (ALT)",
+        "B": "Sorbitol dehydrogenase",
+        "C": "Creatine kinase (CK; CPK)",
+        "D": "Lactate dehydrogenase (LDH)",
+        "E": "Phosphorylase"
+      },
+      "correct": "C",
+      "category": "Clinical_Pathology",
+      "subcategory": "Enzymology",
+      "requires_image": false
+    },
+    {
+      "id": 50,
+      "question": "How many mL of a 1:1000 epinephrine solution is equal to 0.3 mg?",
+      "options": {
+        "A": "0.003 mL",
+        "B": "0.03 mL",
+        "C": "0.3 mL",
+        "D": "3 mL",
+        "E": "30 mL"
+      },
+      "correct": "C",
+      "category": "Pharmacology",
+      "subcategory": "Dose_Calculation",
+      "requires_image": false
+    },
+    {
+      "id": 51,
+      "question": "Which of the following best explains why clavulanate is added to penicillin preparations?",
+      "options": {
+        "A": "It assists killing by affecting a subsequent step of the peptidoglycan synthesis pathway",
+        "B": "It facilitates diffusion of the penicillin through the outer cell membrane",
+        "C": "It hinders the exclusion of beta-lactams by bacterial efflux pumps",
+        "D": "It serves as a substrate for beta-lactamases so that the penicillin is less affected by them"
+      },
+      "correct": "D",
+      "category": "Pharmacology",
+      "subcategory": "Antimicrobials",
+      "requires_image": false
+    },
+    {
+      "id": 52,
+      "question": "An 8-year-old neutered male domestic shorthaired cat is brought for evaluation because he has been lethargic and anorectic since his owner returned home after a two-day absence. The cat has a two-year history of diabetes mellitus that has been treated successfully with twice-daily injections of insulin. The cat was not administered the insulin while the client was away. Results of laboratory studies disclose: Arterial Blood pH 7.2 (N 7.31-7.46), HCO3- 14 mEq/L (N 18-23) [14 mmol/L (N 18-23)], PCO2 37 mm Hg (N 33-45) [4.9 kPa (N 4.4-6.0)]. Which of the following best describes the acid-base status of this cat?",
+      "options": {
+        "A": "Metabolic acidosis",
+        "B": "Metabolic alkalosis",
+        "C": "Respiratory acidosis",
+        "D": "Respiratory alkalosis"
+      },
+      "correct": "A",
+      "category": "Clinical_Pathology",
+      "subcategory": "Acid-Base",
+      "requires_image": false
+    },
+    {
+      "id": 53,
+      "question": "In ruminants, glucose is produced primarily through the utilization of which of the following substances as a substrate for gluconeogenesis?",
+      "options": {
+        "A": "Glycogen",
+        "B": "Insulin",
+        "C": "Protein",
+        "D": "Proprionate"
+      },
+      "correct": "D",
+      "category": "Physiology",
+      "subcategory": "Ruminant_Metabolism",
+      "requires_image": false
+    },
+    {
+      "id": 54,
+      "question": "A 4-year-old ram in a flock of 150 purebred Suffolk sheep is being evaluated because he has been having difficulty maintaining his balance and has been rubbing the wool from his sides for the past two weeks. A photograph is shown. The farmer reports that during the past five years, three other sheep have displayed similar signs, and these sheep died two to six weeks after difficulty maintaining balance became severe. Which of the following diseases is most likely?",
+      "options": {
+        "A": "Demodectic mange",
+        "B": "Dermatophytosis",
+        "C": "Inherited neuronal storage disease",
+        "D": "Listeriosis",
+        "E": "Scrapie"
+      },
+      "correct": "E",
+      "category": "Microbiology",
+      "subcategory": "Prion_Disease",
+      "requires_image": true,
+      "image_note": "Photograph of a Suffolk ram with wool loss on sides consistent with scrapie pruritus"
+    },
+    {
+      "id": 55,
+      "question": "During an inflammatory response, which of the following plasma components is central to the activation of the complement, coagulation, and kinin systems?",
+      "options": {
+        "A": "C1 esterase",
+        "B": "Fibrinogen",
+        "C": "Hageman factor",
+        "D": "Kininogen",
+        "E": "Plasmin"
+      },
+      "correct": "C",
+      "category": "Immunology",
+      "subcategory": "Inflammation",
+      "requires_image": false
+    },
+    {
+      "id": 56,
+      "question": "A plain lateral radiograph of a healthy canine thorax is shown. Which of the following chambers of the heart is indicated by the arrow?",
+      "options": {
+        "A": "Left atrium",
+        "B": "Left auricle",
+        "C": "Left ventricle",
+        "D": "Right atrium",
+        "E": "Right ventricle"
+      },
+      "correct": "D",
+      "category": "Anatomy",
+      "subcategory": "Radiology",
+      "requires_image": true,
+      "image_note": "Lateral thoracic radiograph with arrow pointing to right atrium"
+    },
+    {
+      "id": 57,
+      "question": "A 5-year-old Poodle dog requires sutures for a superficial laceration on the right pelvic limb. The anesthetic regimen consisted of medetomidine, ketamine, and butorphanol. The dog becomes bradycardic and hypertensive following induction. Administration of which of the following drugs is most likely to reverse adverse effects caused by alpha2-adrenergic receptor stimulation?",
+      "options": {
+        "A": "Atipamezole",
+        "B": "Flumazenil",
+        "C": "Naloxone",
+        "D": "Prazosin",
+        "E": "Propranolol"
+      },
+      "correct": "A",
+      "category": "Pharmacology",
+      "subcategory": "Anesthesia_Reversal",
+      "requires_image": false
+    },
+    {
+      "id": 58,
+      "question": "Variant Creutzfeldt-Jakob disease in humans has been associated with which of the following diseases in animals?",
+      "options": {
+        "A": "Bovine spongiform encephalopathy",
+        "B": "Eastern equine encephalomyelitis",
+        "C": "Rabies encephalitis",
+        "D": "Transmissible mink encephalopathy",
+        "E": "West Nile viral encephalitis"
+      },
+      "correct": "A",
+      "category": "Microbiology",
+      "subcategory": "Prion_Disease",
+      "requires_image": false
+    },
+    {
+      "id": 59,
+      "question": "A mature dog has loss of innervation to the right limb after being hit by a car. Which of the following changes is most likely to occur in the muscle mass of this limb?",
+      "options": {
+        "A": "Aplasia",
+        "B": "Atrophy",
+        "C": "Dysplasia",
+        "D": "Hypertrophy",
+        "E": "Hypoplasia"
+      },
+      "correct": "B",
+      "category": "Pathology",
+      "subcategory": "Cell_Adaptation",
+      "requires_image": false
+    },
+    {
+      "id": 60,
+      "question": "A cat develops a large palpable mass at the site of a subcutaneous vaccine injection administered one year ago. Which of the following is the most likely diagnosis?",
+      "options": {
+        "A": "Fibrosarcoma",
+        "B": "Hemangiopericytoma",
+        "C": "Lymphoma",
+        "D": "Malignant melanoma",
+        "E": "Mast cell tumor"
+      },
+      "correct": "A",
+      "category": "Pathology",
+      "subcategory": "Oncology",
+      "requires_image": false
+    }
+  ]
+}
