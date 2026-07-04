@@ -1,26 +1,27 @@
 #!/usr/bin/env python3
 """
-VetExamBench-60 — ICVA VEA Benchmark Runner
-=============================================
-Runs 60 official ICVA VEA sample questions against an AI model via the
-Anthropic API. Produces a scored report with per-category breakdown,
-confidence intervals, and pass/fail verdict.
+VetExamBench-60 — Multi-Model Benchmark Runner
+================================================
+Tests Claude AND GPT models against 60 ICVA VEA questions.
 
 Usage:
-    # Full 60-question run (includes 7 image-dependent questions as text-only)
-    python run_vea_benchmark.py --api-key sk-ant-... --model claude-sonnet-4-6
+    # Claude
+    python run_vea_benchmark.py --provider anthropic --api-key sk-ant-... --model claude-sonnet-4-6
 
-    # Text-only: skip image-dependent questions (53 questions)
-    python run_vea_benchmark.py --api-key sk-ant-... --skip-image-questions
+    # GPT-4o
+    python run_vea_benchmark.py --provider openai --api-key sk-... --model gpt-4o
 
-    # Dry-run: print questions without calling the API
+    # GPT-o3
+    python run_vea_benchmark.py --provider openai --api-key sk-... --model o3
+
+    # Text-only (skip 7 image questions)
+    python run_vea_benchmark.py --provider anthropic --api-key sk-ant-... --skip-image-questions
+
+    # Dry run
     python run_vea_benchmark.py --dry-run
 
-    # Use a specific JSON file
-    python run_vea_benchmark.py --api-key sk-ant-... --questions path/to/vea_benchmark_60.json
-
 Requirements:
-    pip install anthropic  (or: pip install requests)
+    pip install requests
 
 Source: ICVA VEA® Sample Questions — © ICVA. Used for non-commercial evaluation.
 """
@@ -30,16 +31,23 @@ import os
 import re
 import sys
 import math
+import time
 import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:
+    import requests
+except ImportError:
+    print("Error: pip install requests")
+    sys.exit(1)
+
+
 # ---------------------------------------------------------------------------
-# Confidence interval (Wilson score)
+# Wilson score 95% CI
 # ---------------------------------------------------------------------------
 
-def wilson_ci(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
-    """Wilson score 95% CI for a proportion k/n."""
+def wilson_ci(k: int, n: int, z: float = 1.96) -> tuple:
     if n == 0:
         return (0.0, 0.0)
     p_hat = k / n
@@ -59,7 +67,7 @@ def load_questions(path: str) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Build prompt for a single question
+# Prompt
 # ---------------------------------------------------------------------------
 
 SYSTEM_PROMPT = (
@@ -73,35 +81,17 @@ def build_user_prompt(q: dict) -> str:
     lines = [f"Question {q['id']}: {q['question']}", ""]
     for letter, text in q["options"].items():
         lines.append(f"({letter}) {text}")
-    if q.get("requires_image"):
-        note = q.get("image_note", "")
-        if note:
-            lines.append(f"\n[Image context: {note}]")
+    if q.get("requires_image") and q.get("image_note"):
+        lines.append(f"\n[Image context: {q['image_note']}]")
     return "\n".join(lines)
 
 
 # ---------------------------------------------------------------------------
-# Call the Anthropic API
+# API Callers
 # ---------------------------------------------------------------------------
 
-def call_anthropic(api_key: str, model: str, question_prompt: str) -> str:
-    """Call Anthropic Messages API and return the raw text response."""
-    try:
-        import anthropic
-        client = anthropic.Anthropic(api_key=api_key)
-        response = client.messages.create(
-            model=model,
-            max_tokens=8,
-            system=SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": question_prompt}],
-        )
-        return response.content[0].text.strip()
-    except ImportError:
-        pass
-
-    # Fallback: raw requests
-    import requests
-    resp = requests.post(
+def call_anthropic(api_key: str, model: str, prompt: str) -> str:
+    r = requests.post(
         "https://api.anthropic.com/v1/messages",
         headers={
             "x-api-key": api_key,
@@ -110,41 +100,87 @@ def call_anthropic(api_key: str, model: str, question_prompt: str) -> str:
         },
         json={
             "model": model,
-            "max_tokens": 8,
+            "max_tokens": 16,
             "system": SYSTEM_PROMPT,
-            "messages": [{"role": "user", "content": question_prompt}],
+            "messages": [{"role": "user", "content": prompt}],
         },
         timeout=30,
     )
-    resp.raise_for_status()
-    data = resp.json()
-    return data["content"][0]["text"].strip()
+    r.raise_for_status()
+    return r.json()["content"][0]["text"].strip()
 
+
+def call_openai(api_key: str, model: str, prompt: str) -> str:
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+    body = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": prompt},
+        ],
+        "max_tokens": 16,
+        "temperature": 0,
+    }
+    # o-series models don't support system messages or temperature
+    if model.startswith(("o1", "o3", "o4")):
+        body["messages"] = [
+            {"role": "user", "content": SYSTEM_PROMPT + "\n\n" + prompt}
+        ]
+        del body["temperature"]
+        del body["max_tokens"]
+        body["max_completion_tokens"] = 64
+
+    r = requests.post(
+        "https://api.openai.com/v1/chat/completions",
+        headers=headers, json=body, timeout=60,
+    )
+    r.raise_for_status()
+    return r.json()["choices"][0]["message"]["content"].strip()
+
+
+def call_model(provider: str, api_key: str, model: str, prompt: str) -> str:
+    if provider == "anthropic":
+        return call_anthropic(api_key, model, prompt)
+    elif provider == "openai":
+        return call_openai(api_key, model, prompt)
+    else:
+        raise ValueError(f"Unknown provider: {provider}")
+
+
+# ---------------------------------------------------------------------------
+# Extract answer letter
+# ---------------------------------------------------------------------------
 
 def extract_answer(raw: str) -> str:
-    """Extract a single letter A-F from the model's response."""
-    raw = raw.strip().upper()
-    # If it's already a single letter
-    if len(raw) == 1 and raw in "ABCDEF":
-        return raw
-    # Try to find (X) or just the first capital letter A-F
-    match = re.search(r"\(?([A-F])\)?", raw)
-    if match:
-        return match.group(1)
-    return raw[:1] if raw else "?"
+    raw = raw.strip()
+    if len(raw) > 10:
+        for pat in [
+            r'(?:answer|correct)\s+(?:is|:)\s*\(?([A-F])\)?',
+            r'\*\*([A-F])\*\*',
+            r'^\(?([A-F])\)?[\.\s]',
+            r'\(?([A-F])\)?\s*$',
+        ]:
+            m = re.search(pat, raw, re.IGNORECASE | re.MULTILINE)
+            if m:
+                return m.group(1).upper()
+    raw_upper = raw.upper().strip()
+    if len(raw_upper) == 1 and raw_upper in "ABCDEF":
+        return raw_upper
+    m = re.search(r'\(?([A-F])\)?', raw_upper)
+    if m:
+        return m.group(1)
+    return raw_upper[:1] if raw_upper else "?"
 
 
 # ---------------------------------------------------------------------------
 # Run benchmark
 # ---------------------------------------------------------------------------
 
-def run_benchmark(
-    questions_path: str,
-    api_key: str | None = None,
-    model: str = "claude-sonnet-4-6",
-    skip_image: bool = False,
-    dry_run: bool = False,
-) -> dict:
+def run_benchmark(provider, api_key, model, questions_path,
+                  skip_image=False, dry_run=False, delay=0.5):
     data = load_questions(questions_path)
     meta = data["metadata"]
     questions = data["questions"]
@@ -155,71 +191,71 @@ def run_benchmark(
     total = len(questions)
     correct = 0
     wrong = []
-    results_per_q = []
-    category_stats: dict[str, dict] = {}
+    results = []
+    category_stats = {}
+    label = f"{provider}/{model}"
 
     print(f"\n{'='*66}")
-    print(f"  VetExamBench-60  |  Model: {model}")
-    print(f"  Questions: {total}  |  {'TEXT-ONLY' if skip_image else 'FULL (incl. image-context)'}")
+    print(f"  VetExamBench-60  |  {label}")
+    print(f"  Questions: {total}  |  {'TEXT-ONLY' if skip_image else 'FULL'}")
     print(f"{'='*66}\n")
 
     for i, q in enumerate(questions, 1):
         prompt = build_user_prompt(q)
         cat = q.get("category", "Unknown")
-
         if cat not in category_stats:
             category_stats[cat] = {"total": 0, "correct": 0, "wrong_ids": []}
         category_stats[cat]["total"] += 1
 
         if dry_run:
             print(f"  [{i:2d}/{total}] Q{q['id']:2d}  ({cat})  — DRY RUN")
-            model_answer = "?"
-            is_correct = False
-        else:
-            raw = call_anthropic(api_key, model, prompt)
+            results.append({"id": q["id"], "model_answer": "?",
+                            "correct_answer": q["correct"],
+                            "is_correct": False, "category": cat})
+            continue
+
+        try:
+            raw = call_model(provider, api_key, model, prompt)
             model_answer = extract_answer(raw)
-            is_correct = model_answer == q["correct"]
+        except Exception as e:
+            print(f"  [{i:2d}/{total}] Q{q['id']:2d}  ⚠️  ERROR: {e}")
+            model_answer = "?"
+            raw = str(e)
+            time.sleep(5)
 
-            if is_correct:
-                correct += 1
-                category_stats[cat]["correct"] += 1
-                mark = "✅"
-            else:
-                wrong.append({
-                    "id": q["id"],
-                    "category": cat,
-                    "subcategory": q.get("subcategory", ""),
-                    "expected": q["correct"],
-                    "got": model_answer,
-                    "question_snippet": q["question"][:80],
-                    "requires_image": q.get("requires_image", False),
-                })
-                category_stats[cat]["wrong_ids"].append(q["id"])
-                mark = "❌"
+        is_correct = model_answer == q["correct"]
+        if is_correct:
+            correct += 1
+            category_stats[cat]["correct"] += 1
+            mark = "✅"
+        else:
+            wrong.append({"id": q["id"], "category": cat,
+                          "subcategory": q.get("subcategory", ""),
+                          "expected": q["correct"], "got": model_answer,
+                          "raw_response": raw[:200],
+                          "requires_image": q.get("requires_image", False)})
+            category_stats[cat]["wrong_ids"].append(q["id"])
+            mark = "❌"
 
-            print(f"  [{i:2d}/{total}] Q{q['id']:2d}  {mark}  model={model_answer}  key={q['correct']}  ({cat})")
+        print(f"  [{i:2d}/{total}] Q{q['id']:2d}  {mark}  model={model_answer}  key={q['correct']}  ({cat})")
+        results.append({"id": q["id"], "model_answer": model_answer,
+                        "correct_answer": q["correct"],
+                        "is_correct": is_correct, "category": cat})
 
-        results_per_q.append({
-            "id": q["id"],
-            "model_answer": model_answer,
-            "correct_answer": q["correct"],
-            "is_correct": is_correct,
-            "category": cat,
-        })
+        if i < total:
+            time.sleep(delay)
 
-    # Compute stats
     pct = (correct / total * 100) if total > 0 else 0
     ci_lo, ci_hi = wilson_ci(correct, total)
     passed = pct >= meta.get("pass_threshold_pct", 70)
 
     report = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "model": model,
+        "provider": provider, "model": model,
         "source": meta.get("title", "VEA Benchmark"),
         "total_questions": total,
         "image_questions_skipped": skip_image,
-        "correct": correct,
-        "wrong_count": total - correct,
+        "correct": correct, "wrong_count": total - correct,
         "score_pct": round(pct, 1),
         "ci_95_low": round(ci_lo * 100, 1),
         "ci_95_high": round(ci_hi * 100, 1),
@@ -227,109 +263,77 @@ def run_benchmark(
         "passed": passed,
         "category_breakdown": {},
         "wrong_answers": wrong,
-        "results_per_question": results_per_q,
+        "results_per_question": results,
     }
-
-    # Category breakdown
-    for cat, stats in sorted(category_stats.items()):
-        cat_pct = (stats["correct"] / stats["total"] * 100) if stats["total"] > 0 else 0
+    for cat, s in sorted(category_stats.items()):
+        cp = (s["correct"] / s["total"] * 100) if s["total"] > 0 else 0
         report["category_breakdown"][cat] = {
-            "total": stats["total"],
-            "correct": stats["correct"],
-            "pct": round(cat_pct, 1),
-            "wrong_question_ids": stats["wrong_ids"],
-        }
+            "total": s["total"], "correct": s["correct"],
+            "pct": round(cp, 1), "wrong_question_ids": s["wrong_ids"]}
 
-    # Print summary
+    # Summary
     print(f"\n{'='*66}")
-    print(f"  RESULTS SUMMARY")
+    print(f"  RESULTS — {label}")
     print(f"{'='*66}")
     print(f"  Score:     {correct}/{total}  ({pct:.1f}%)")
     print(f"  95% CI:    [{ci_lo*100:.1f}% — {ci_hi*100:.1f}%]")
     print(f"  Threshold: ≥{meta.get('pass_threshold_pct', 70)}%")
     print(f"  Verdict:   {'✅ PASSED' if passed else '❌ FAILED'}")
     print()
-    print(f"  Category Breakdown:")
     print(f"  {'Category':<22} {'Score':>8}  {'Pct':>6}")
     print(f"  {'-'*22} {'-'*8}  {'-'*6}")
-    for cat, stats in sorted(report["category_breakdown"].items()):
-        s = f"{stats['correct']}/{stats['total']}"
-        print(f"  {cat:<22} {s:>8}  {stats['pct']:>5.1f}%")
-
+    for cat, s in sorted(report["category_breakdown"].items()):
+        print(f"  {cat:<22} {s['correct']}/{s['total']:>2}      {s['pct']:>5.1f}%")
     if wrong:
-        print(f"\n  Wrong Answers ({len(wrong)}):")
+        print(f"\n  Wrong ({len(wrong)}):")
         for w in wrong:
-            img_flag = " 📷" if w["requires_image"] else ""
-            print(f"    Q{w['id']:2d} [{w['category']}/{w['subcategory']}]"
-                  f"  expected={w['expected']} got={w['got']}{img_flag}")
+            img = " 📷" if w["requires_image"] else ""
+            print(f"    Q{w['id']:2d} [{w['category']}] expected={w['expected']} got={w['got']}{img}")
     print(f"{'='*66}\n")
-
     return report
 
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
-
 def main():
     parser = argparse.ArgumentParser(
-        description="VetExamBench-60: ICVA VEA Benchmark Runner"
-    )
-    parser.add_argument(
-        "--api-key",
-        default=os.environ.get("ANTHROPIC_API_KEY"),
-        help="Anthropic API key (or set ANTHROPIC_API_KEY env var)",
-    )
-    parser.add_argument(
-        "--model",
-        default="claude-sonnet-4-6",
-        help="Model to test (default: claude-sonnet-4-6)",
-    )
-    parser.add_argument(
-        "--questions",
-        default=str(Path(__file__).parent / "vea_benchmark_60.json"),
-        help="Path to the benchmark JSON file",
-    )
-    parser.add_argument(
-        "--skip-image-questions",
-        action="store_true",
-        help="Skip the 7 image-dependent questions (run 53 text-only)",
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Print questions without calling the API",
-    )
-    parser.add_argument(
-        "--output",
-        default=None,
-        help="Path to save the JSON report (default: benchmark_report_<timestamp>.json)",
-    )
-
+        description="VetExamBench-60: Multi-Model Runner (Claude + GPT)")
+    parser.add_argument("--provider", choices=["anthropic", "openai"])
+    parser.add_argument("--api-key", default=None)
+    parser.add_argument("--model", default=None)
+    parser.add_argument("--questions",
+                        default=str(Path(__file__).parent / "vea_benchmark_60.json"))
+    parser.add_argument("--skip-image-questions", action="store_true")
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--delay", type=float, default=0.5)
+    parser.add_argument("--output", default=None)
     args = parser.parse_args()
 
-    if not args.dry_run and not args.api_key:
-        print("Error: --api-key or ANTHROPIC_API_KEY required (unless --dry-run)")
-        sys.exit(1)
+    if args.dry_run:
+        args.provider = args.provider or "anthropic"
+        api_key = "dry-run"
+    else:
+        if not args.provider:
+            print("Error: --provider anthropic or --provider openai required")
+            sys.exit(1)
+        api_key = args.api_key or os.environ.get(
+            "ANTHROPIC_API_KEY" if args.provider == "anthropic" else "OPENAI_API_KEY")
+        if not api_key:
+            env = "ANTHROPIC_API_KEY" if args.provider == "anthropic" else "OPENAI_API_KEY"
+            print(f"Error: --api-key or {env} env var required")
+            sys.exit(1)
+
+    if not args.model:
+        args.model = {"anthropic": "claude-sonnet-4-6",
+                      "openai": "gpt-4o"}[args.provider]
 
     report = run_benchmark(
-        questions_path=args.questions,
-        api_key=args.api_key,
-        model=args.model,
-        skip_image=args.skip_image_questions,
-        dry_run=args.dry_run,
-    )
+        args.provider, api_key, args.model, args.questions,
+        args.skip_image_questions, args.dry_run, args.delay)
 
-    # Save report
-    if args.output:
-        out_path = args.output
-    else:
-        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        out_path = f"benchmark_report_{ts}.json"
-
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(report, f, indent=2, ensure_ascii=False)
-    print(f"  Report saved → {out_path}")
+    if not args.dry_run:
+        out = args.output or f"report_{args.provider}_{args.model}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        with open(out, "w", encoding="utf-8") as f:
+            json.dump(report, f, indent=2, ensure_ascii=False)
+        print(f"  Report saved → {out}")
 
 
 if __name__ == "__main__":
